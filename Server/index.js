@@ -1,6 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require("dotenv").config();
+
+const mongodb_URL = process.env.MONGODB_URL;
 
 const userRouter = require("./routes/user");
 
@@ -16,9 +19,7 @@ app.get("/", (req, res) => {
   });
 });
 
-mongoose.connect(
-  "mongodb+srv://admin:Z23LWHwBb4QzfMen@cluster0.f0vq5sj.mongodb.net/Journal"
-);
+mongoose.connect(mongodb_URL);
 
 app.listen(3000, () => {
   console.log("Server started at post 3000");

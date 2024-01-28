@@ -3,6 +3,8 @@ const router = express.Router();
 const { z, ZodError } = require("zod");
 const bcrypt = require("bcrypt");
 const User = require("../db/db");
+const jwt = require("jsonwebtoken");
+const { authenticateJWT, secretKey } = require("../middleware/auth");
 
 const signupSchema = z.object({
   email: z.string().email(),
@@ -57,6 +59,34 @@ router.post("/signup", async (req, res) => {
       });
     }
   }
+});
+
+router.post("/signin", async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return res.status(400).json({
+      success: false,
+      message: "User not found! Please sign up.",
+    });
+  }
+
+  const token = jwt.sign({ email }, secretKey, (err, token) => {
+    if (err) {
+      return res.sendStatus(403);
+    }
+    res.status(200).json({
+      success: true,
+      message: "Signed in successfully!",
+      user: {
+        email: req.body.email,
+        password: req.body.password,
+      },
+      token: token,
+    });
+  });
 });
 
 module.exports = router;
