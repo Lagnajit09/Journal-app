@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 });
 
 mongoose.connect(
-  "mongodb+srv://admin:Z23LWHwBb4QzfMen@cluster0.f0vq5sj.mongodb.net/Journal"
+  //Your mongoDB connection URL
 );
 
 app.listen(3000, () => {
