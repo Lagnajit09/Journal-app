@@ -1,0 +1,29 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.1.1",
+    "node-modules": "^1.0.1",
+    "nodemon": "^3.0.3",
+    "zod": "^3.22.4"
+  },
+  "name": "journal-app",
+  "description": "A journal app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lagnajit09/Journal-app.git"
+  },
+  "author": "Lagnajit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lagnajit09/Journal-app/issues"
+  },
+  "homepage": "https://github.com/Lagnajit09/Journal-app#readme"
+}
