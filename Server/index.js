@@ -19,7 +19,10 @@ app.get("/", (req, res) => {
   });
 });
 
-mongoose.connect(mongodb_URL);
+mongoose
+  .connect
+  //Your mongoDB connection URL
+  ();
 
 app.listen(3000, () => {
   console.log("Server started at post 3000");
