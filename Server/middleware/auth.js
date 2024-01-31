@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { User } = require("../db/db");
 require("dotenv").config();
 
 const secretKey = process.env.MY_SECRET_KEY;
@@ -8,10 +9,11 @@ const authenticateJWT = (req, res, next) => {
 
   if (authHeader) {
     const token = authHeader.split(" ")[1];
-    jwt.verify(token, secretKey, (err, user) => {
+    jwt.verify(token, secretKey, async (err, user) => {
       if (err) {
         return res.sendStatus(403);
       }
+
       req.user = user;
       next();
     });

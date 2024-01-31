@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { z, ZodError } = require("zod");
 const bcrypt = require("bcrypt");
-const User = require("../db/db");
+const { User } = require("../db/db");
 const jwt = require("jsonwebtoken");
 const { authenticateJWT, secretKey } = require("../middleware/auth");
 
@@ -73,20 +73,24 @@ router.post("/signin", async (req, res) => {
     });
   }
 
-  const token = jwt.sign({ email }, secretKey, (err, token) => {
-    if (err) {
-      return res.sendStatus(403);
+  const token = jwt.sign(
+    { email, userID: user._id },
+    secretKey,
+    (err, token) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+      res.status(200).json({
+        success: true,
+        message: "Signed in successfully!",
+        user: {
+          email: req.body.email,
+          password: req.body.password,
+        },
+        token: token,
+      });
     }
-    res.status(200).json({
-      success: true,
-      message: "Signed in successfully!",
-      user: {
-        email: req.body.email,
-        password: req.body.password,
-      },
-      token: token,
-    });
-  });
+  );
 });
 
 module.exports = router;

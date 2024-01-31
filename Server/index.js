@@ -6,12 +6,14 @@ require("dotenv").config();
 const mongodb_URL = process.env.MONGODB_URL;
 
 const userRouter = require("./routes/user");
+const journalRouter = require("./routes/journal");
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 app.use("/user", userRouter);
+app.use("/user", journalRouter);
 
 app.get("/", (req, res) => {
   res.status(200).json({
